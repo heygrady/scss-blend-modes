@@ -20,10 +20,8 @@ All functions expect a color as the `$foreground` and `$background` colors. Blen
 - **blend-multiply(** *$foreground*, *$background* **)**
 - **blend-lighten(** *$foreground*, *$background* **)**
 - **blend-darken(** *$foreground*, *$background* **)**
-- **blend-lighten(** *$foreground*, *$background* **)**
-- **blend-darken(** *$foreground*, *$background* **)**
-- **blend-darkercolor(** *$foreground*, *$background* **)**
-- **blend-lightercolor(** *$foreground*, *$background* **)**
+- **blend-darkercolor(** *$foreground*, *$background* **)** - Not found in Photoshop.
+- **blend-lightercolor(** *$foreground*, *$background* **)** - Not found in Photoshop.
 - **blend-lineardodge(** *$foreground*, *$background* **)**
 - **blend-linearburn(** *$foreground*, *$background* **)**
 - **blend-difference(** *$foreground*, *$background* **)**
@@ -39,7 +37,7 @@ All functions expect a color as the `$foreground` and `$background` colors. Blen
 - **blend-pinlight(** *$foreground*, *$background* **)**
 - **blend-hardmix(** *$foreground*, *$background* **)**
 - **blend-colorblend(** *$foreground*, *$background* **)**
-- **blend-dissolve(** *$foreground*, *$background* **)**
+- **blend-dissolve(** *$foreground*, *$background* **)** - Not implemented. Dissolve treats transparency as a pixel pattern and applies a diffusion dither pattern.
 - **blend-divide(** *$foreground*, *$background* **)**
 - **blend-hue(** *$foreground*, *$background* **)**
 - **blend-luminosity(** *$foreground*, *$background* **)**
