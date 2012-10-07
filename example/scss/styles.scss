@@ -1,0 +1,40 @@
+@import "../../blend-mode.scss";
+
+$blend-modes: normal, multiply, lighten, darken, darkercolor, lightercolor, lineardodge, linearburn, difference, screen, exclusion, overlay, softlight, hardlight, colordodge, colorburn, linearlight, vividlight, pinlight, hardmix;
+
+$foreground-color: #7FFFD4;
+$background-color: #DEB887;
+
+
+.foreground { background-color: $foreground-color; }
+.background { background-color: $background-color; }
+
+.normal { background-color: blend-normal($foreground-color, $background-color); }
+.multiply { background-color: blend-multiply($foreground-color, $background-color); }
+.lighten { background-color: blend-lighten($foreground-color, $background-color); }
+.darken { background-color: blend-darken($foreground-color, $background-color); }
+.darkercolor { background-color: blend-darkercolor($foreground-color, $background-color); }
+.lightercolor { background-color: blend-lightercolor($foreground-color, $background-color); }
+.lineardodge { background-color: blend-lineardodge($foreground-color, $background-color); }
+.linearburn { background-color: blend-linearburn($foreground-color, $background-color); }
+.difference { background-color: blend-difference($foreground-color, $background-color); }
+.screen { background-color: blend-screen($foreground-color, $background-color); }
+.exclusion { background-color: blend-exclusion($foreground-color, $background-color); }
+.overlay { background-color: blend-overlay($foreground-color, $background-color); }
+.softlight { background-color: blend-softlight($foreground-color, $background-color); }
+.hardlight { background-color: blend-hardlight($foreground-color, $background-color); }
+.colordodge { background-color: blend-colordodge($foreground-color, $background-color); }
+.colorburn { background-color: blend-colorburn($foreground-color, $background-color); }
+.linearlight { background-color: blend-linearlight($foreground-color, $background-color); }
+.vividlight { background-color: blend-vividlight($foreground-color, $background-color); }
+.pinlight { background-color: blend-pinlight($foreground-color, $background-color); }
+.hardmix { background-color: blend-hardmix($foreground-color, $background-color); }
+
+
+.colorblend { background-color: blend-colorblend($foreground-color, $background-color); }
+.dissolve { background-color: blend-dissolve($foreground-color, $background-color); }
+.divide { background-color: blend-divide($foreground-color, $background-color); }
+.hue { background-color: blend-hue($foreground-color, $background-color); }
+.luminosity { background-color: blend-luminosity($foreground-color, $background-color); }
+.saturation { background-color: blend-saturation($foreground-color, $background-color); }
+.subtract { background-color: blend-subtract($foreground-color, $background-color); }

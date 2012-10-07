@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/styles.css">
+        <style>
+            h2 { clear: both; }
+            div { float:left; height: 100px; width: 100px; margin: 10px; }
+        </style>
+    </head>
+    <body>
+        <div class="foreground">foreground</div>
+        <div class="background">background</div>
+        <h2>SCSS Blend Modes</h2>
+        <div class="normal">normal</div>
+        <div class="multiply">multiply</div>
+        <div class="lighten">lighten</div>
+        <div class="darken">darken</div>
+        <div class="darkercolor">darkercolor</div>
+        <div class="lightercolor">lightercolor</div>
+        <div class="lineardodge">lineardodge</div>
+        <div class="linearburn">linearburn</div>
+        <div class="difference">difference</div>
+        <div class="screen">screen</div>
+        <div class="exclusion">exclusion</div>
+        <div class="overlay">overlay</div>
+        <div class="softlight">softlight</div>
+        <div class="hardlight">hardlight</div>
+        <div class="colordodge">colordodge</div>
+        <div class="colorburn">colorburn</div>
+        <div class="linearlight">linearlight</div>
+        <div class="vividlight">vividlight</div>
+        <div class="pinlight">pinlight</div>
+        <div class="hardmix">hardmix</div>
+
+        <h2>Photoshop</h2>
+        <div class="colorblend">colorblend</div>
+        <div class="dissolve">dissolve</div>
+        <div class="divide">divide</div>
+        <div class="hue">hue</div>
+        <div class="luminosity">luminosity</div>
+        <div class="saturation">saturation</div>
+        <div class="subtract">subtract</div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="js/blend-mode.js"></script>
+        <script>
+        var foreground = '#7FFFD4';
+        var background = '#DEB887';
+
+        $.each(['normal', 'multiply', 'lighten', 'darken', 'darkercolor', 'lightercolor', 'lineardodge', 'linearburn', 'difference', 'screen', 'exclusion', 'overlay', 'softlight', 'hardlight', 'colordodge', 'colorburn', 'linearlight', 'vividlight', 'pinlight', 'hardmix'], function(i, mode) {
+            var color = blend(mode, foreground, background);
+            $('.' + mode).after('<div style="background-color: ' + color + '">' + mode + ' JS</div>');
+            if (mode != 'darkercolor' && mode != 'lightercolor') {
+                $('.' + mode).after('<div style="background-image: url(i/' + mode + '.png)">' + mode + ' PS</div>');
+            }
+        });
+
+        $.each(['colorblend', 'dissolve', 'divide', 'hue', 'luminosity', 'saturation', 'subtract'], function(i, mode) {
+            $('.' + mode).after('<div style="background-image: url(i/' + mode + '.png)">' + mode + ' PS</div>');
+        });
+        </script>
+    </body>
+</html>

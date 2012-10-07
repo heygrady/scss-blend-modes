@@ -1,365 +1,528 @@
 //--------------------------------
 // Normal
 //--------------------------------
-@function blend-normal ($blend, $base) {
-  $opacity: opacity($blend);
-  $base-opacity: opacity($base);
+@function blend-normal ($foreground, $background) {
+  $opacity: opacity($foreground);
+  $background-opacity: opacity($background);
 
   // calculate opacity
-  $bm-red: red($blend) * $opacity + red($base) * $base-opacity * (1 - $opacity);
-  $bm-green: green($blend) * $opacity + green($base) * $base-opacity * (1 - $opacity);
-  $bm-blue: blue($blend) * $opacity + blue($base) * $base-opacity * (1 - $opacity);
+  $bm-red: red($foreground) * $opacity + red($background) * $background-opacity * (1 - $opacity);
+  $bm-green: green($foreground) * $opacity + green($background) * $background-opacity * (1 - $opacity);
+  $bm-blue: blue($foreground) * $opacity + blue($background) * $background-opacity * (1 - $opacity);
   @return rgb($bm-red, $bm-green, $bm-blue);
 }
 
 //--------------------------------
 // Multiply
 //--------------------------------
-@function blend-multiply ($blend, $base) {
-  $bm-red: red($base) * red($blend) / 255;
-  $bm-green: green($base) * green($blend) / 255;
-  $bm-blue: blue($base) * blue($blend) / 255;
+@function blend-multiply ($foreground, $background) {
+  $bm-red: red($background) * red($foreground) / 255;
+  $bm-green: green($background) * green($foreground) / 255;
+  $bm-blue: blue($background) * blue($foreground) / 255;
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
 
 //--------------------------------
 // Lighten
 //--------------------------------
-@function blend-lighten ($blend, $base) {
-  $bm-red: blend-lighten-color(red($blend), red($base));
-  $bm-green: blend-lighten-color(green($blend), green($base));
-  $bm-blue: blend-lighten-color(blue($blend), blue($base));
+@function blend-lighten ($foreground, $background) {
+  $bm-red: blend-lighten-color(red($foreground), red($background));
+  $bm-green: blend-lighten-color(green($foreground), green($background));
+  $bm-blue: blend-lighten-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-lighten-color($blend, $base) {
-  @if $base > $blend {
-    $blend: $base;
+@function blend-lighten-color($foreground, $background) {
+  @if $background > $foreground {
+    $foreground: $background;
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Darken
 //--------------------------------
-@function blend-darken ($blend, $base) {
-  $bm-red: blend-darken-color(red($blend), red($base));
-  $bm-green: blend-darken-color(green($blend), green($base));
-  $bm-blue: blend-darken-color(blue($blend), blue($base));
+@function blend-darken ($foreground, $background) {
+  $bm-red: blend-darken-color(red($foreground), red($background));
+  $bm-green: blend-darken-color(green($foreground), green($background));
+  $bm-blue: blend-darken-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-darken-color($blend, $base) {
-  @if $base < $blend {
-    $blend: $base;
+@function blend-darken-color($foreground, $background) {
+  @if $background < $foreground {
+    $foreground: $background;
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Darker Color
 //--------------------------------
-@function blend-darkercolor ($blend, $base) {
-  $bm-red: red($blend);
-  $bm-green: green($blend);
-  $bm-blue: blue($blend);
-  $base-red: red($base);
-  $base-green: green($base);
-  $base-blue: blue($base);
+@function blend-darkercolor ($foreground, $background) {
+  $bm-red: red($foreground);
+  $bm-green: green($foreground);
+  $bm-blue: blue($foreground);
+  $background-red: red($background);
+  $background-green: green($background);
+  $background-blue: blue($background);
 
-  @if $base-red * 0.3 + $base-green * 0.59 + $base-blue * 0.11 <= $bm-red * 0.3 + $bm-green * 0.59 + $bm-blue * 0.11 {
-    $bm-red: $base-red;
-    $bm-green: $base-green;
-    $bm-blue: $base-blue;
+  @if $background-red * 0.3 + $background-green * 0.59 + $background-blue * 0.11 <= $bm-red * 0.3 + $bm-green * 0.59 + $bm-blue * 0.11 {
+    $bm-red: $background-red;
+    $bm-green: $background-green;
+    $bm-blue: $background-blue;
   }
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
 
 //--------------------------------
 // Lighter Color
 //--------------------------------
-@function blend-lightercolor ($blend, $base) {
-  $bm-red: red($blend);
-  $bm-green: green($blend);
-  $bm-blue: blue($blend);
-  $base-red: red($base);
-  $base-green: green($base);
-  $base-blue: blue($base);
+@function blend-lightercolor ($foreground, $background) {
+  $bm-red: red($foreground);
+  $bm-green: green($foreground);
+  $bm-blue: blue($foreground);
+  $background-red: red($background);
+  $background-green: green($background);
+  $background-blue: blue($background);
 
-  @if $base-red * 0.3 + $base-green * 0.59 + $base-blue * 0.11 > $bm-red * 0.3 + $bm-green * 0.59 + $bm-blue * 0.11 {
-    $bm-red: $base-red;
-    $bm-green: $base-green;
-    $bm-blue: $base-blue;
+  @if $background-red * 0.3 + $background-green * 0.59 + $background-blue * 0.11 > $bm-red * 0.3 + $bm-green * 0.59 + $bm-blue * 0.11 {
+    $bm-red: $background-red;
+    $bm-green: $background-green;
+    $bm-blue: $background-blue;
   }
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
 
 //--------------------------------
 // Linear Dodge
 //--------------------------------
-@function blend-lineardodge ($blend, $base) {
-  $bm-red: blend-lineardodge-color(red($blend), red($base));
-  $bm-green: blend-lineardodge-color(green($blend), green($base));
-  $bm-blue: blend-lineardodge-color(blue($blend), blue($base));
+@function blend-lineardodge ($foreground, $background) {
+  $bm-red: blend-lineardodge-color(red($foreground), red($background));
+  $bm-green: blend-lineardodge-color(green($foreground), green($background));
+  $bm-blue: blend-lineardodge-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-lineardodge-color($blend, $base) {
-  @if $base + $blend > 255 {
-    $blend: 255;
+@function blend-lineardodge-color($foreground, $background) {
+  @if $background + $foreground > 255 {
+    $foreground: 255;
   }
   @else {
-    $blend: $base + $blend;
+    $foreground: $background + $foreground;
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Linear Burn
 //--------------------------------
-@function blend-linearburn ($blend, $base) {
-  $bm-red: blend-linearburn-color(red($blend), red($base));
-  $bm-green: blend-linearburn-color(green($blend), green($base));
-  $bm-blue: blend-linearburn-color(blue($blend), blue($base));
+@function blend-linearburn ($foreground, $background) {
+  $bm-red: blend-linearburn-color(red($foreground), red($background));
+  $bm-green: blend-linearburn-color(green($foreground), green($background));
+  $bm-blue: blend-linearburn-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-linearburn-color($blend, $base) {
-  @if $base + $blend < 255 {
-    $blend: 0;
+@function blend-linearburn-color($foreground, $background) {
+  @if $background + $foreground < 255 {
+    $foreground: 0;
   }
   @else {
-    $blend: $base + $blend - 255;
+    $foreground: $background + $foreground - 255;
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Difference
 //--------------------------------
-@function blend-difference ($blend, $base) {
-  $bm-red: abs(red($base) - red($blend));
-  $bm-green: abs(green($base) - green($blend));
-  $bm-blue: abs(blue($base) - blue($blend));
+@function blend-difference ($foreground, $background) {
+  $bm-red: abs(red($background) - red($foreground));
+  $bm-green: abs(green($background) - green($foreground));
+  $bm-blue: abs(blue($background) - blue($foreground));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
 
 //--------------------------------
 // Screen
 //--------------------------------
-@function blend-screen ($blend, $base) {
-  $bm-red: red($blend);
-  $bm-green: green($blend);
-  $bm-blue: blue($blend);
-  $base-red: red($base);
-  $base-green: green($base);
-  $base-blue: blue($base);
+@function blend-screen ($foreground, $background) {
+  $bm-red: blend-screen-color(red($foreground), red($background));
+  $bm-green: blend-screen-color(green($foreground), green($background));
+  $bm-blue: blend-screen-color(blue($foreground), blue($background));
 
-
-  $bm-red: (255 - ( ((255 - $bm-red) * (255 - $base-red)) / 256));
-  $bm-green: (255 - ( ((255 - $bm-green) * (255 - $base-green)) / 256));
-  $bm-blue: (255 - ( ((255 - $bm-blue) * (255 - $base-blue)) / 256));
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
+}
+@function blend-screen-color($foreground, $background) {
+  @return (255 - ( ( (255 - $foreground) * (255 - $background)) / 256));
 }
 
 //--------------------------------
 // Exclusion
 //--------------------------------
-@function blend-exclusion ($blend, $base) {
-  $bm-red: red($blend);
-  $bm-green: green($blend);
-  $bm-blue: blue($blend);
-  $base-red: red($base);
-  $base-green: green($base);
-  $base-blue: blue($base);
+@function blend-exclusion ($foreground, $background) {
+  $bm-red: blend-exclusion-color(red($foreground), red($background));
+  $bm-green: blend-exclusion-color(green($foreground), green($background));
+  $bm-blue: blend-exclusion-color(blue($foreground), blue($background));
 
-
-  $bm-red: $base-red - ($base-red * $blend-div - 1) * $bm-red;
-  $bm-green: $base-green - ($base-green * $blend-div - 1) * $bm-green;
-  $bm-blue: $base-blue - ($base-blue * $blend-div - 1) * $bm-blue;
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
+}
+@function blend-exclusion-color($foreground, $background) {
+  @return $background - ($background * (2 / 255) - 1) * $foreground;
 }
 
 //--------------------------------
 // Overlay
 //--------------------------------
-@function blend-overlay ($blend, $base) {
-  $bm-red: blend-overlay-color(red($blend), red($base));
-  $bm-green: blend-overlay-color(green($blend), green($base));
-  $bm-blue: blend-overlay-color(blue($blend), blue($base));
+@function blend-overlay ($foreground, $background) {
+  $bm-red: blend-overlay-color(red($foreground), red($background));
+  $bm-green: blend-overlay-color(green($foreground), green($background));
+  $bm-blue: blend-overlay-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-overlay-color($blend, $base) {
-  @if $base <= 255 / 2 {
-    $blend: (2 * $base * $blend) / 255;
+@function blend-overlay-color($foreground, $background) {
+  @if $background <= 255 / 2 {
+    $foreground: (2 * $background * $foreground) / 255;
   } @else {
-    $blend: 255 - (255 - 2 * ($base - (255 / 2))) * (255 - $blend) / 255;
+    $foreground: 255 - (255 - 2 * ($background - (255 / 2))) * (255 - $foreground) / 255;
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Soft Light
 //--------------------------------
-@function blend-softlight ($blend, $base) {
-  $bm-red: blend-softlight-color(red($blend), red($base));
-  $bm-green: blend-softlight-color(green($blend), green($base));
-  $bm-blue: blend-softlight-color(blue($blend), blue($base));
+@function blend-softlight ($foreground, $background) {
+  $bm-red: blend-softlight-color(red($foreground), red($background));
+  $bm-green: blend-softlight-color(green($foreground), green($background));
+  $bm-blue: blend-softlight-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-softlight-color($blend, $base) {
-  @if $base < 128 {
-    $blend: (($blend / 2) + 64) * $base * $blend-div;
+@function blend-softlight-color($foreground, $background) {
+  @if $background < 128 {
+    $foreground: (($foreground / 2) + 64) * $background * (2 / 255);
   } @else {
-    $blend: 255 - (191 - ($blend / 2)) * (255 - $base) * $blend-div;
+    $foreground: 255 - (191 - ($foreground / 2)) * (255 - $background) * (2 / 255);
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Hard Light
 //--------------------------------
-@function blend-hardlight ($blend, $base) {
-  $bm-red: blend-hardlight-color(red($blend), red($base));
-  $bm-green: blend-hardlight-color(green($blend), green($base));
-  $bm-blue: blend-hardlight-color(blue($blend), blue($base));
+@function blend-hardlight ($foreground, $background) {
+  $bm-red: blend-hardlight-color(red($foreground), red($background));
+  $bm-green: blend-hardlight-color(green($foreground), green($background));
+  $bm-blue: blend-hardlight-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-hardlight-color($blend, $base) {
-  $tmp-blend: $blend;
+@function blend-hardlight-color($foreground, $background) {
+  $tmp-blend: $foreground;
   @if $tmp-blend < 128 {
-    $blend: $base * $tmp-blend * $blend-div;
+    $foreground: $background * $tmp-blend * (2 / 255);
   } @else {
-    $blend: 255 - (255-$base) * (255-$tmp-blend) * $blend-div;
+    $foreground: 255 - (255-$background) * (255-$tmp-blend) * (2 / 255);
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Color Dodge
 //--------------------------------
-@function blend-colordodge ($blend, $base) {
-  $bm-red: blend-colordodge-color(red($blend), red($base));
-  $bm-green: blend-colordodge-color(green($blend), green($base));
-  $bm-blue: blend-colordodge-color(blue($blend), blue($base));
+@function blend-colordodge ($foreground, $background) {
+  $bm-red: blend-colordodge-color(red($foreground), red($background));
+  $bm-green: blend-colordodge-color(green($foreground), green($background));
+  $bm-blue: blend-colordodge-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-colordodge-color($blend, $base) {
-  $tmp: $base * 256 / (255 - $blend);
-  @if $tmp > 255 or $blend == 255 {
-    $blend: 255;
+@function blend-colordodge-color($foreground, $background) {
+  $tmp: $background * 256 / (255 - $foreground);
+  @if $tmp > 255 or $foreground == 255 {
+    $foreground: 255;
   } @else {
-    $blend: $tmp;
+    $foreground: $tmp;
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Color Burn
 //--------------------------------
-@function blend-colorburn ($blend, $base) {
-  $bm-red: blend-colorburn-color(red($blend), red($base));
-  $bm-green: blend-colorburn-color(green($blend), green($base));
-  $bm-blue: blend-colorburn-color(blue($blend), blue($base));
+@function blend-colorburn ($foreground, $background) {
+  $bm-red: blend-colorburn-color(red($foreground), red($background));
+  $bm-green: blend-colorburn-color(green($foreground), green($background));
+  $bm-blue: blend-colorburn-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-colorburn-color($blend, $base) {
-  $tmp: (256 - ((255 - $base) * 256) / $blend);
+@function blend-colorburn-color($foreground, $background) {
+  $tmp: (255 - ((255 - $background) * 255) / $foreground);
 
   // TODO: hacked to replicate photoshop
-  @if $blend == 0 {
-    $blend: 255;
+  @if $foreground == 0 {
+    $foreground: 255;
   } @elseif $tmp < 0 {
-    $blend: 0;
+    $foreground: 0;
   } @else {
-    $blend: $tmp;
+    $foreground: $tmp;
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Linear Light
 //--------------------------------
-@function blend-linearlight ($blend, $base) {
-  $bm-red: blend-linearlight-color(red($blend), red($base));
-  $bm-green: blend-linearlight-color(green($blend), green($base));
-  $bm-blue: blend-linearlight-color(blue($blend), blue($base));
+@function blend-linearlight ($foreground, $background) {
+  $bm-red: blend-linearlight-color(red($foreground), red($background));
+  $bm-green: blend-linearlight-color(green($foreground), green($background));
+  $bm-blue: blend-linearlight-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
-@function blend-linearlight-color($blend, $base) {
-  @if $blend < 128 {
-    $blend: blend-linearburn-color($base, 2 * $blend);
+@function blend-linearlight-color($foreground, $background) {
+  @if $foreground < 128 {
+    $foreground: blend-linearburn-color($background, 2 * $foreground);
   } @else {
-    $blend: blend-lineardodge-color($base, 2 * ($blend - 128));
+    $foreground: blend-lineardodge-color($background, 2 * ($foreground - 128));
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Vivid Light
 //--------------------------------
-@function blend-vividlight ($blend, $base) {
-  $bm-red: blend-vividlight-color(red($blend), red($base));
-  $bm-green: blend-vividlight-color(green($blend), green($base));
-  $bm-blue: blend-vividlight-color(blue($blend), blue($base));
+@function blend-vividlight ($foreground, $background) {
+  $bm-red: blend-vividlight-color(red($foreground), red($background));
+  $bm-green: blend-vividlight-color(green($foreground), green($background));
+  $bm-blue: blend-vividlight-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
 
-@function blend-vividlight-color($blend, $base) {
-  @if $blend < 128 {
-    $blend: blend-colorburn-color(2 * $blend, $base);
+@function blend-vividlight-color($foreground, $background) {
+  @if $foreground < 128 {
+    $foreground: blend-colorburn-color(2 * $foreground, $background);
   } @else {
-    $blend: blend-colordodge-color(2 * ($blend - 128), $base);
+    $foreground: blend-colordodge-color(2 * ($foreground - 128), $background);
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Pin Light
 //--------------------------------
-@function blend-pinlight ($blend, $base) {
-  $bm-red:   blend-pinlight-color(red($blend), red($base));
-  $bm-green: blend-pinlight-color(green($blend), green($base));
-  $bm-blue:  blend-pinlight-color(blue($blend), blue($base));
+@function blend-pinlight ($foreground, $background) {
+  $bm-red:   blend-pinlight-color(red($foreground), red($background));
+  $bm-green: blend-pinlight-color(green($foreground), green($background));
+  $bm-blue:  blend-pinlight-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
 
-@function blend-pinlight-color($blend, $base) {
-  @if $blend < 128 {
-    $blend: blend-darken-color($base, 2 * $blend);
+@function blend-pinlight-color($foreground, $background) {
+  @if $foreground < 128 {
+    $foreground: blend-darken-color($background, 2 * $foreground);
   } @else {
-    $blend: blend-lighten-color($base, 2 * ($blend - 128));
+    $foreground: blend-lighten-color($background, 2 * ($foreground - 128));
   }
-  @return $blend;
+  @return $foreground;
 }
 
 //--------------------------------
 // Hard Mix
 //--------------------------------
-@function blend-hardmix ($blend, $base) {
-  $bm-red: blend-hardmix-color(red($blend), red($base));
-  $bm-green: blend-hardmix-color(green($blend), green($base));
-  $bm-blue: blend-hardmix-color(blue($blend), blue($base));
+@function blend-hardmix ($foreground, $background) {
+  $bm-red: blend-hardmix-color(red($foreground), red($background));
+  $bm-green: blend-hardmix-color(green($foreground), green($background));
+  $bm-blue: blend-hardmix-color(blue($foreground), blue($background));
 
-  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($blend)), $base);
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
 }
 
-@function blend-hardmix-color($blend, $base) {
-  $tmp: blend-vividlight-color($blend, $base);
+@function blend-hardmix-color($foreground, $background) {
+  $tmp: blend-vividlight-color($foreground, $background);
   @if $tmp < 128 {
-    $blend: 0;
+    $foreground: 0;
   } @else {
-    $blend: 255;
+    $foreground: 255;
   }
-  @return $blend;
+  @return $foreground;
+}
+
+
+// Unique to Photoshop
+
+//--------------------------------
+// Color Blend
+//--------------------------------
+@function blend-colorblend ($foreground, $background) {
+  $foreground-hsv: color-to-hsv($foreground);
+  $background-hsv: color-to-hsv($background);
+
+  $bm-hsv: nth($foreground-hsv, 1), nth($foreground-hsv, 2), nth($background-hsv, 3);
+  $bm-color: hsv-to-color($bm-hsv);
+  
+  @return blend-normal(rgba(red($bm-color), green($bm-color), blue($bm-color), opacity($foreground)), $background);
+}
+
+//--------------------------------
+// Dissolve
+//--------------------------------
+@function blend-dissolve ($foreground, $background) {
+  // The Dissolve blend mode acts on transparent and partially transparent pixels
+  // it treats transparency as a pixel pattern and applies a diffusion dither pattern.
+  // @see http://photoblogstop.com/photoshop/photoshop-blend-modes-explained
+  @return $foreground;
+}
+
+//--------------------------------
+// Divide
+//--------------------------------
+@function blend-divide ($foreground, $background) {
+  $bm-red: blend-divide-colors(red($foreground), red($background));
+  $bm-green: blend-divide-colors(green($foreground), green($background));
+  $bm-blue:blend-divide-colors(blue($foreground), blue($background));
+
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
+}
+@function blend-divide-colors($foreground, $background) {
+  @return min((($background / 255) / ($foreground / 255)) * 255, 255);
+}
+
+//--------------------------------
+// Hue
+//--------------------------------
+@function blend-hue ($foreground, $background) {
+  $foreground-hsv: color-to-hsv($foreground);
+  $background-hsv: color-to-hsv($background);
+
+  $bm-hsv: nth($foreground-hsv, 1), nth($background-hsv, 2), nth($background-hsv, 3);
+  $bm-color: hsv-to-color($bm-hsv);
+
+  @return blend-normal(rgba(red($bm-color), green($bm-color), blue($bm-color), opacity($foreground)), $background);
+}
+
+//--------------------------------
+// Luminosity
+//--------------------------------
+@function blend-luminosity ($foreground, $background) {
+  $foreground-hsv: color-to-hsv($foreground);
+  $background-hsv: color-to-hsv($background);
+
+  $bm-hsv: nth($background-hsv, 1), nth($background-hsv, 2), nth($foreground-hsv, 3);
+  $bm-color: hsv-to-color($bm-hsv);
+  
+  @return blend-normal(rgba(red($bm-color), green($bm-color), blue($bm-color), opacity($foreground)), $background);
+}
+
+//--------------------------------
+// Saturation
+//--------------------------------
+@function blend-saturation ($foreground, $background) {
+  $foreground-hsv: color-to-hsv($foreground);
+  $background-hsv: color-to-hsv($background);
+
+  $bm-hsv: nth($background-hsv, 1), nth($foreground-hsv, 2), nth($background-hsv, 3);
+  $bm-color: hsv-to-color($bm-hsv);
+  
+  @return blend-normal(rgba(red($bm-color), green($bm-color), blue($bm-color), opacity($foreground)), $background);
+}
+
+//--------------------------------
+// Subtract
+//--------------------------------
+@function blend-subtract ($foreground, $background) {
+  $bm-red: max(red($background) - red($foreground), 0);
+  $bm-green: max(green($background) - green($foreground), 0);
+  $bm-blue: max(blue($background) - blue($foreground), 0);
+
+  @return blend-normal(rgba($bm-red, $bm-green, $bm-blue, opacity($foreground)), $background);
+}
+
+//--------------------------------
+// HSL and HSV
+//--------------------------------
+// @see https://gist.github.com/1069204
+@function hsv-to-hsl($h, $s: 0, $v: 0) {
+  @if type-of($h) == 'list' {
+    $v: nth($h, 3);
+    $s: nth($h, 2);
+    $h: nth($h, 1);
+  }
+
+  @if unit($h) == 'deg' {
+    $h: 3.1415 * 2 * ($h / 360deg);
+  }
+  @if unit($s) == '%' {
+    $s: 0 + ($s / 100%);
+  }
+  @if unit($v) == '%' {
+    $v: 0 + ($v / 100%);
+  }
+
+  $ss: $s * $v;
+  $ll: (2 - $s) * $v;
+
+  @if $ll <= 1 {
+    $ss: $ss / $ll;
+  } @else if ($ll == 2) {
+    $ss: 0;
+  } @else {
+    $ss: $ss / (2 - $ll);
+  }
+
+  $ll: $ll / 2;
+
+  @return 360deg * $h / (3.1415 * 2), percentage(max(0, min(1, $ss))), percentage(max(0, min(1, $ll)));
+}
+
+@function hsl-to-hsv($h, $ss: 0, $ll: 0) {
+  @if type-of($h) == 'list' {
+    $ll: nth($h, 3);
+    $ss: nth($h, 2);
+    $h: nth($h, 1);
+  } @else if type-of($h) == 'color' {
+    $ll: lightness($h);
+    $ss: saturation($h);
+    $h: hue($h);
+  }
+
+  @if unit($h) == 'deg' {
+    $h: 3.1415 * 2 * ($h / 360deg);
+  }
+  @if unit($ss) == '%' {
+    $ss: 0 + ($ss / 100%);
+  }
+  @if unit($ll) == '%' {
+    $ll: 0 + ($ll / 100%);
+  }
+
+  $ll: $ll * 2;
+
+  @if $ll <= 1 {
+    $ss: $ss * $ll;
+  } @else {
+    $ss: $ss * (2 - $ll);
+  }
+
+  $v: ($ll + $ss) / 2;
+  $s: (2 * $ss) / ($ll + $ss);
+
+  @return 360deg * $h / (3.1415 * 2), percentage(max(0, min(1, $s))), percentage(max(0, min(1, $v)));
+}
+
+@function color-to-hsv($color) {
+  @return hsl-to-hsv($color);
+}
+
+@function hsv-to-color($h, $s: 0, $v: 0) {
+  $hsl: hsv-to-hsl($h, $s, $v);
+  @return hsl(nth($hsl, 1), nth($hsl, 2), nth($hsl, 3));
 }
