@@ -47,10 +47,10 @@ All functions expect a color as the `$foreground` and `$background` colors. Blen
 ## HSV Functions
 These functions are used to convert between RGB, HSL and HSV color formats. The HSV color format is not natively supported by CSS or Sass. These functions were taken directly from this [Gist](https://gist.github.com/1069204). HSV values are used to calculate the results for the `blend-colorblend`, `blend-hue`, `blend-luminosity` and `blend-saturation` functions.
 
-- **hsv-to-hsl(** *$h*, [*$s: 0*, *$v: 0*] **)** - Converts a HSV color values into HSL color values. `$h` can be a list of three values representing `$h`, `$s` and `$v`.
-- **hsl-to-hsv(** *$h*, [*$ss: 0*, *$ll: 0*] **)** - Converts a HSL color values into HSV color values.$h` can be a list of three values representing `$h`, `$ss` and `$ll`.
+- **hsv-to-hsl(** *$h*, [ *$s: 0*, *$v: 0* ] **)** - Converts a HSV color values into HSL color values. `$h` can be a list of three values representing `$h`, `$s` and `$v`.
+- **hsl-to-hsv(** *$h*, [ *$ss: 0*, *$ll: 0* ] **)** - Converts a HSL color values into HSV color values.$h` can be a list of three values representing `$h`, `$ss` and `$ll`.
 - **color-to-hsv(** *$color*)** - Converts a [Sass Color](http://sass-lang.com/docs/yardoc/Sass/Script/Color.html) into a [list](http://sass-lang.com/docs/yardoc/Sass/Script/List.html) HSV color values.
-- **hsv-to-color(** *$h*, [*$s: 0*, *$v: 0*] **)** - Converts a list of HSV color values into a Sass Color. $h` can be a list of three values representing `$h`, `$s` and `$v`
+- **hsv-to-color(** *$h*, [* $s: 0*, *$v: 0* ] **)** - Converts a list of HSV color values into a Sass Color. $h` can be a list of three values representing `$h`, `$s` and `$v`
 
 ## Internal Functions
 These functions are used to save redundant code and are not meant to be used directly. These functions perform the blending operation on a single r, g or b value.
