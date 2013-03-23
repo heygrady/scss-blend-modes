@@ -1,14 +1,13 @@
+// Import the Compass Plugin
 @import "blend-mode";
 
-$blend-modes: normal, multiply, lighten, darken, darkercolor, lightercolor, lineardodge, linearburn, difference, screen, exclusion, overlay, softlight, hardlight, colordodge, colorburn, linearlight, vividlight, pinlight, hardmix;
-
+// Plain Colors
 $foreground-color: #7FFFD4;
 $background-color: #DEB887;
-
-
 .foreground { background-color: $foreground-color; }
 .background { background-color: $background-color; }
 
+// Blended Colors
 .normal { background-color: blend-normal($foreground-color, $background-color); }
 .multiply { background-color: blend-multiply($foreground-color, $background-color); }
 .lighten { background-color: blend-lighten($foreground-color, $background-color); }
