@@ -1,2 +1,2 @@
 require 'compass' # Ensure Compass
-require 'compass/blend-modes
+require 'compass/blend-modes'
