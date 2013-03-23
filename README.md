@@ -4,20 +4,57 @@ CSS doesn't natively support color blending the way that Photoshop does. This li
 ## A Note on Real CSS3 Blend Modes
 Adobe has been working on a [W3C spec](http://www.w3.org/TR/compositing/) to [add blend modes to CSS3](http://blogs.adobe.com/webplatform/2012/04/04/bringing-blending-to-the-web/). However, this has [not been implemented in any browser](http://css3clickchart.com/#blending-modes). This library is **not** a polyfill for those blend modes. A polyfill for real, dynamic blend modes will require SVG or JavaScript + Canvas.
 
-## Blending Functions
-The included functions are based on the [blend.js](https://github.com/jseidelin/pixastic/blob/master/actions/blend.js) file from the [Pixastic Image Processing Library](http://www.pixastic.com/lib/). I chose this library because JavaScript is easy enough to read and the blend modes seemed to match closely with what Photoshop offered. Additionally, a [detailed explaination of Photoshop blend modes](http://photoblogstop.com/photoshop/photoshop-blend-modes-explained) was used as a reference as well as the [Wikipedia article on blend modes](http://en.wikipedia.org/wiki/Blend_modes).
+## A Note on Color Blending
+The included functions are based on [blend.js](https://github.com/jseidelin/pixastic/blob/master/actions/blend.js) from the [Pixastic Image Processing Library](http://www.pixastic.com/lib/). I chose this library because JavaScript is easy enough to read and the blend modes seemed to match closely with what Photoshop offered. Additionally, a [detailed explaination of Photoshop blend modes](http://photoblogstop.com/photoshop/photoshop-blend-modes-explained) was used as a reference as well as the [Wikipedia article on blend modes](http://en.wikipedia.org/wiki/Blend_modes).
+
+These blend mode functions are not magic. In Photoshop, the blend mode functions are applied dynamically between two layers in order to create a pixel-by-pixel blend. In CSS they can only be used to combine two solid colors together. Blend modes can be useful in times when a Photoshop design implements a blend mode on an element, like a drop shadow, that is over a mostly solid background. Choosing a dominant background color and a solid foreground color may allow for the apearance of a dynamically blended color.
+
+## Installation
+#### Install the Ruby Gem.
+```
+gem install compass-blend-modes
+```
+
+#### Existing Compass Projects
+You can include it in any existing Compass project by including the plugin in your config.rb file.
+
+```ruby
+# Require any additional compass plugins here.
+require 'compass-blend-modes'
+```
+
+#### New Compass Projects
+You can install the plugin as part of a new Compass project.
+
+```
+compass create my_project -r compass-blend-modes
+```
 
 ## Usage
-These blend mode functions are not magic. In Photoshop, the blend mode functions are applied dynamically between two layers in order to create various effects. In CSS they can only be used to combine two solid colors together. Blend modes can be useful in times when a Photoshop design implements a blend mode on an element, like a drop shadow, that is over a mostly solid background. Choosing a dominant background color and a solid foreground color may allow for the apearance of a dynamically blended color.
 
 ```scss
+@import 'blend-modes';
+```
+
+### Examples
+
+```scss
+// make sure the functions are imported
+@import 'blend-modes';
+
+// Solid background
 .multiply {
 	background-color: blend-multiply(#7FFFD4, #DEB887);
+}
+
+// RGBa background
+.multiply {
+	background-color: blend-multiply(rgba(#7FFFD4, 0.5), rgba(#DEB887, 0.5));
 }
 ```
 
 ## Blending Functions
-All functions expect a color as the `$foreground` and `$background` colors. Blending functions work by combining the colors from the top-most layer, the `$foreground` with the lower layer, the `$background`.
+All functions expect a color as the `$foreground` and `$background` colors. The colors can be any hex, [rgb](http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html#rgb-instance_method), [rgba](http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html#rgba-instance_method), [hsl](http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html#hsl-instance_method), or [hsla](http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html#hsla-instance_method) color supported by Sass. Blending functions work by combining the colors from the top-most layer, the `$foreground`, with the lower layer, the `$background`.
 
 - **blend-normal(** *$foreground*, *$background* **)** - Normal is used primarily to preserve the opacity after the blending has been applied to the RGB values.
 - **blend-multiply(** *$foreground*, *$background* **)**
