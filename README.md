@@ -89,8 +89,8 @@ These functions are used to convert between RGB, HSL and HSV color formats. The 
 
 - **hsv-to-hsl(** *$h*, [ *$s: 0*, *$v: 0* ] **)** - Converts a HSV color values into HSL color values. `$h` can be a list of three values representing `$h`, `$s` and `$v`.
 - **hsl-to-hsv(** *$h*, [ *$ss: 0*, *$ll: 0* ] **)** - Converts a HSL color values into HSV color values. `$h` can be a list of three values representing `$h`, `$ss` and `$ll`.
-- **color-to-hsv(** *$color* )** - Converts a [Sass Color](http://sass-lang.com/docs/yardoc/Sass/Script/Color.html) into a [list](http://sass-lang.com/docs/yardoc/Sass/Script/List.html) HSV color values.
-- **hsv-to-color(** *$h*, [* $s: 0*, *$v: 0* ] **)** - Converts a list of HSV color values into a Sass Color. `$h` can be a list of three values representing `$h`, `$s` and `$v`
+- **color-to-hsv(** *$color* **)** - Converts a [Sass Color](http://sass-lang.com/docs/yardoc/Sass/Script/Color.html) into a [list](http://sass-lang.com/docs/yardoc/Sass/Script/List.html) HSV color values.
+- **hsv-to-color(** *$h*, [ *$s: 0*, *$v: 0* ] **)** - Converts a list of HSV color values into a Sass Color. `$h` can be a list of three values representing `$h`, `$s` and `$v`
 
 ## Internal Functions
 These functions are used to save redundant code and are not meant to be used directly. These functions perform the blending operation on a single r, g or b value.
