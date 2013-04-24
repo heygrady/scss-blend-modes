@@ -513,7 +513,7 @@
   }
 
   $v: ($ll + $ss) / 2;
-  $s: if($ll + $ss = 0, 0, (2 * $ss) / ($ll + $ss));
+  $s: if($ll + $ss == 0, 0, (2 * $ss) / ($ll + $ss));
 
   @return 360deg * $h / (3.1415 * 2), percentage(max(0, min(1, $s))), percentage(max(0, min(1, $v)));
 }
