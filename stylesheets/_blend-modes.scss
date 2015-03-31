@@ -1,3 +1,4 @@
+// Import the Compass Plugin
 //--------------------------------
 // Normal
 //--------------------------------
@@ -368,7 +369,7 @@
 
   $bm-hsv: nth($foreground-hsv, 1), nth($foreground-hsv, 2), nth($background-hsv, 3);
   $bm-color: hsv-to-color($bm-hsv);
-  
+
   @return blend-normal(rgba(red($bm-color), green($bm-color), blue($bm-color), opacity($foreground)), $background);
 }
 
@@ -418,7 +419,7 @@
 
   $bm-hsv: nth($background-hsv, 1), nth($background-hsv, 2), nth($foreground-hsv, 3);
   $bm-color: hsv-to-color($bm-hsv);
-  
+
   @return blend-normal(rgba(red($bm-color), green($bm-color), blue($bm-color), opacity($foreground)), $background);
 }
 
@@ -431,7 +432,7 @@
 
   $bm-hsv: nth($background-hsv, 1), nth($foreground-hsv, 2), nth($background-hsv, 3);
   $bm-color: hsv-to-color($bm-hsv);
-  
+
   @return blend-normal(rgba(red($bm-color), green($bm-color), blue($bm-color), opacity($foreground)), $background);
 }
 
@@ -470,7 +471,7 @@
   $ss: $s * $v;
   $ll: (2 - $s) * $v;
 
-  @if $ll <= 1 {
+  @if $ll <= 1 and $ll != 0 {
     $ss: $ss / $ll;
   } @else if ($ll == 2) {
     $ss: 0;
@@ -513,7 +514,7 @@
   }
 
   $v: ($ll + $ss) / 2;
-  $s: (2 * $ss) / ($ll + $ss);
+  $s: if($ll + $ss == 0, 0, (2 * $ss) / ($ll + $ss));
 
   @return 360deg * $h / (3.1415 * 2), percentage(max(0, min(1, $s))), percentage(max(0, min(1, $v)));
 }
